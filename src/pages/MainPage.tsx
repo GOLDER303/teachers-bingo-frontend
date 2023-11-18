@@ -1,10 +1,22 @@
 import { useRef } from "react"
+import { useNavigate } from "react-router-dom"
+import { JoinCurrentBingo } from "../services/BingoGameService"
 
 const MainPage: React.FC = () => {
     const playerNameInputRef = useRef<HTMLInputElement>(null)
 
-    const handlePlayerNameSubmit = () => {
-        // TODO:
+    const navigate = useNavigate()
+
+    const handlePlayerNameSubmit = async () => {
+        if (!playerNameInputRef.current || !playerNameInputRef.current.value) {
+            return
+        }
+
+        const playerName = playerNameInputRef.current.value
+
+        const bingoGameId = await JoinCurrentBingo(playerName)
+
+        navigate(`/bingoGame/${bingoGameId}`)
     }
 
     return (
