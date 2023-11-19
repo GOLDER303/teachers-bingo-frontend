@@ -21,7 +21,7 @@ const BingoGamePage: React.FC = () => {
                             {row.map((phrase, colIndex) => {
                                 return (
                                     <div
-                                        className="flex w-full h-full p-3 aspect-square items-center justify-center bg-blue-400 rounded-xl md:p-5"
+                                        className="flex w-full h-full p-3 aspect-square items-center justify-center bg-blue-400 rounded-xl cursor-pointer hover:bg-blue-300 md:p-5"
                                         onClick={() => {
                                             handlePhraseClick(rowIndex, colIndex)
                                         }}
