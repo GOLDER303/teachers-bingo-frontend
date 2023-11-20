@@ -1,5 +1,5 @@
 import { useRef, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { createSearchParams, useNavigate } from "react-router-dom"
 import { JoinCurrentBingo } from "../services/BingoGameService"
 
 const MainPage: React.FC = () => {
@@ -23,7 +23,12 @@ const MainPage: React.FC = () => {
             return
         }
 
-        navigate(`/bingoGame/${bingoGameId}`)
+        const searchParams = { playerName }
+
+        navigate({
+            pathname: `/bingoGame/${bingoGameId}`,
+            search: createSearchParams(searchParams).toString(),
+        })
     }
 
     return (
