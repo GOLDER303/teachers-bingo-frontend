@@ -11,7 +11,7 @@ const router = createBrowserRouter([
         element: <MainPage />,
     },
     {
-        path: "/bingoGame/:id",
+        path: "/bingoGame/:bingoGameId",
         element: <BingoGamePage />,
     },
 ])
