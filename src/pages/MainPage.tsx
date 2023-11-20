@@ -1,11 +1,13 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { JoinCurrentBingo } from "../services/BingoGameService"
 
 const MainPage: React.FC = () => {
+    const navigate = useNavigate()
+
     const playerNameInputRef = useRef<HTMLInputElement>(null)
 
-    const navigate = useNavigate()
+    const [error, setError] = useState<string | undefined>()
 
     const handlePlayerNameSubmit = async () => {
         if (!playerNameInputRef.current || !playerNameInputRef.current.value) {
@@ -15,6 +17,11 @@ const MainPage: React.FC = () => {
         const playerName = playerNameInputRef.current.value
 
         const bingoGameId = await JoinCurrentBingo(playerName)
+
+        if (!bingoGameId) {
+            setError("Problem while joining the game. Try again later")
+            return
+        }
 
         navigate(`/bingoGame/${bingoGameId}`)
     }
@@ -50,6 +57,7 @@ const MainPage: React.FC = () => {
                     Play
                 </button>
             </form>
+            <p className={`h-4 pt-5 ${error ? "opacity-100" : "opacity-0"}`}>{error}</p>
         </div>
     )
 }
