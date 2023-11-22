@@ -1,9 +1,27 @@
+import { useEffect, useState } from "react"
+import { useSearchParams } from "react-router-dom"
+import { PlayerInfoDTO } from "../dtos/PlayerInfoDTO"
+import { getPlayerInfo } from "../services/PlayerService"
+
 const BingoGamePage: React.FC = () => {
-    const phrases = [
-        ["Phrase 1", "Phrase 2", "Phrase 3"],
-        ["Phrase 4", "Phrase 5", "Phrase 6"],
-        ["Phrase 7", "Phrase 8", "Phrase 9"],
-    ]
+    const [searchParams] = useSearchParams()
+
+    const playerName = searchParams.get("playerName")
+
+    const [playerInfo, setPlayerInfo] = useState<PlayerInfoDTO>()
+
+    useEffect(() => {
+        if (!playerName) {
+            throw new Error("Player name not specified!")
+        }
+
+        const fetchData = async (playerName: string) => {
+            const playerInfo = await getPlayerInfo(playerName)
+            setPlayerInfo(playerInfo)
+        }
+
+        fetchData(playerName)
+    }, [playerName])
 
     const handlePhraseClick = (x: number, y: number) => {
         console.log(`x: ${x}, y: ${y}`)
@@ -15,7 +33,7 @@ const BingoGamePage: React.FC = () => {
 
             {/* bingo grid */}
             <div className="grid max-w-3xl grid-cols-3 grid-rows-3 gap-1 md:gap-2">
-                {phrases.map((row, rowIndex) => {
+                {playerInfo?.currentPhrases.map((row, rowIndex) => {
                     return (
                         <>
                             {row.map((phrase, colIndex) => {
