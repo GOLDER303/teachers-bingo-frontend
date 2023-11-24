@@ -1,14 +1,23 @@
-import { useEffect, useState } from "react"
-import { Link, useSearchParams } from "react-router-dom"
+import React, { useEffect, useState } from "react"
+import { Link, useParams, useSearchParams } from "react-router-dom"
 import { PlayerInfoDTO } from "../dtos/PlayerInfoDTO"
+import CrossSvg from "../img/RedCross.svg"
+import { makeChoice } from "../services/BingoGameService"
 import { getPlayerInfo } from "../services/PlayerService"
 
 const BingoGamePage: React.FC = () => {
     const [searchParams] = useSearchParams()
 
+    const { bingoGameId } = useParams()
     const playerName = searchParams.get("playerName")
 
     const [playerInfo, setPlayerInfo] = useState<PlayerInfoDTO>()
+
+    useEffect(() => {
+        if (!bingoGameId) {
+            throw new Error("Bingo game id not specified!")
+        }
+    }, [bingoGameId])
 
     useEffect(() => {
         if (!playerName) {
@@ -23,8 +32,21 @@ const BingoGamePage: React.FC = () => {
         fetchData(playerName)
     }, [playerName])
 
-    const handlePhraseClick = (x: number, y: number) => {
-        console.log(`x: ${x}, y: ${y}`)
+    const handlePhraseClick = async (x: number, y: number) => {
+        const playerChoiceResponseDTO = await makeChoice(parseInt(bingoGameId!), playerName!, { x, y })
+
+        if (!playerChoiceResponseDTO) {
+            console.error("Something went wrong while handling player choice")
+            return
+        }
+
+        setPlayerInfo((prevPlayerInfo) => {
+            if (!prevPlayerInfo) {
+                return prevPlayerInfo
+            }
+
+            return { ...prevPlayerInfo, currentChoices: playerChoiceResponseDTO.currentChoices }
+        })
     }
 
     return (
@@ -40,11 +62,17 @@ const BingoGamePage: React.FC = () => {
                                 {row.map((phrase, colIndex) => {
                                     return (
                                         <div
-                                            className="flex w-full h-full p-3 aspect-square items-center justify-center bg-blue-400 rounded-xl cursor-pointer hover:bg-blue-300 md:p-5"
+                                            className="relative flex w-full h-full p-3 aspect-square items-center justify-center bg-blue-400 rounded-xl cursor-pointer hover:bg-blue-300 md:p-5"
                                             onClick={() => {
                                                 handlePhraseClick(rowIndex, colIndex)
                                             }}
                                         >
+                                            {playerInfo.currentChoices[rowIndex][colIndex] && (
+                                                <img
+                                                    className="absolute w-full p-3 stroke-red-500 fill-red-500"
+                                                    src={CrossSvg}
+                                                />
+                                            )}
                                             <p className="text-base leading-none text-center sm:text-xl lg:leading-snug">
                                                 {phrase}
                                             </p>
