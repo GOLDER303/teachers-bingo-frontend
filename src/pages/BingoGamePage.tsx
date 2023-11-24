@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Link, useParams, useSearchParams } from "react-router-dom"
 import { PlayerInfoDTO } from "../dtos/PlayerInfoDTO"
-import CrossSvg from "../img/RedCross.svg"
 import { makeChoice } from "../services/BingoGameService"
 import { getPlayerInfo } from "../services/PlayerService"
 
@@ -68,10 +67,33 @@ const BingoGamePage: React.FC = () => {
                                             }}
                                         >
                                             {playerInfo.currentChoices[rowIndex][colIndex] && (
-                                                <img
-                                                    className="absolute w-full p-3 stroke-red-500 fill-red-500"
-                                                    src={CrossSvg}
-                                                />
+                                                <svg
+                                                    className="absolute w-full p-3 stroke-red-500 fill-red-500 opacity-90"
+                                                    width="60mm"
+                                                    height="60mm"
+                                                    viewBox="0 0 60 60"
+                                                >
+                                                    <g>
+                                                        <rect
+                                                            strokeWidth=".969107"
+                                                            width="77.529"
+                                                            height="11.629"
+                                                            x="-38.764"
+                                                            y="36.612"
+                                                            ry="4.846"
+                                                            transform="rotate(-45)"
+                                                        />
+                                                        <rect
+                                                            strokeWidth=".969107"
+                                                            width="77.529"
+                                                            height="11.629"
+                                                            x="-81.191"
+                                                            y="-5.815"
+                                                            ry="4.846"
+                                                            transform="rotate(-135)"
+                                                        />
+                                                    </g>
+                                                </svg>
                                             )}
                                             <p className="text-base leading-none text-center sm:text-xl lg:leading-snug">
                                                 {phrase}
