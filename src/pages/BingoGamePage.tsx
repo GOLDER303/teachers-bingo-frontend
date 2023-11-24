@@ -57,11 +57,14 @@ const BingoGamePage: React.FC = () => {
                 <div className="grid max-w-3xl grid-cols-3 grid-rows-3 gap-1 md:gap-2">
                     {playerInfo.currentPhrases.map((row, rowIndex) => {
                         return (
-                            <>
+                            <React.Fragment key={`row-${rowIndex}`}>
                                 {row.map((phrase, colIndex) => {
+                                    const key = `cel-${rowIndex}-${colIndex}`
+
                                     return (
                                         <div
                                             className="relative flex w-full h-full p-3 aspect-square items-center justify-center bg-blue-400 rounded-xl cursor-pointer hover:bg-blue-300 md:p-5"
+                                            key={key}
                                             onClick={() => {
                                                 handlePhraseClick(rowIndex, colIndex)
                                             }}
@@ -101,7 +104,7 @@ const BingoGamePage: React.FC = () => {
                                         </div>
                                     )
                                 })}
-                            </>
+                            </React.Fragment>
                         )
                     })}
                 </div>
