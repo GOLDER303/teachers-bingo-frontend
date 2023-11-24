@@ -32,6 +32,20 @@ const BingoGamePage: React.FC = () => {
     }, [playerName])
 
     const handlePhraseClick = async (x: number, y: number) => {
+        setPlayerInfo((prevPlayerInfo) => {
+            if (!prevPlayerInfo) {
+                return prevPlayerInfo
+            }
+
+            const newPlayerInfo = { ...prevPlayerInfo }
+
+            newPlayerInfo.currentChoices = JSON.parse(JSON.stringify(prevPlayerInfo.currentChoices))
+
+            newPlayerInfo.currentChoices[x][y] = !newPlayerInfo.currentChoices[x][y]
+
+            return newPlayerInfo
+        })
+
         const playerChoiceResponseDTO = await makeChoice(parseInt(bingoGameId!), playerName!, { x, y })
 
         if (!playerChoiceResponseDTO) {
