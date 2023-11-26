@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react"
+import { useErrorBoundary } from "react-error-boundary"
 import { Link, useParams, useSearchParams } from "react-router-dom"
 import { PlayerInfoDTO } from "../dtos/PlayerInfoDTO"
 import { makeChoice } from "../services/BingoGameService"
 import { getPlayerInfo } from "../services/PlayerService"
 
 const BingoGamePage: React.FC = () => {
+    const { showBoundary } = useErrorBoundary()
+
     const [searchParams] = useSearchParams()
 
     const { bingoGameId } = useParams()
@@ -46,20 +49,19 @@ const BingoGamePage: React.FC = () => {
             return newPlayerInfo
         })
 
-        const playerChoiceResponseDTO = await makeChoice(parseInt(bingoGameId!), playerName!, { x, y })
+        try {
+            const playerChoiceResponseDTO = await makeChoice(parseInt(bingoGameId!), playerName!, { x, y })
 
-        if (!playerChoiceResponseDTO) {
-            console.error("Something went wrong while handling player choice")
-            return
+            setPlayerInfo((prevPlayerInfo) => {
+                if (!prevPlayerInfo) {
+                    return prevPlayerInfo
+                }
+
+                return { ...prevPlayerInfo, currentChoices: playerChoiceResponseDTO.currentChoices }
+            })
+        } catch (error) {
+            showBoundary(error)
         }
-
-        setPlayerInfo((prevPlayerInfo) => {
-            if (!prevPlayerInfo) {
-                return prevPlayerInfo
-            }
-
-            return { ...prevPlayerInfo, currentChoices: playerChoiceResponseDTO.currentChoices }
-        })
     }
 
     return (

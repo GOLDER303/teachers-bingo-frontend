@@ -24,7 +24,7 @@ export const makeChoice = async (
     bingoGameId: number,
     playerName: string,
     coordinates: CoordinatesDTO
-): Promise<PlayerChoiceResponseDTO | undefined> => {
+): Promise<PlayerChoiceResponseDTO> => {
     try {
         const payload: PlayerChoiceDTO = {
             playerName,
@@ -39,7 +39,9 @@ export const makeChoice = async (
 
         return playerChoiceResponseDTO
     } catch (error) {
-        //TODO: error handling
-        console.error(error)
+        const errorMessage = "Error while making choice"
+
+        console.error(`${errorMessage}:\n${error}`)
+        throw new Error(errorMessage)
     }
 }
