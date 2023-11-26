@@ -11,6 +11,9 @@ export const getPlayerInfo = async (playerName: string): Promise<PlayerInfoDTO> 
 
         return data
     } catch (error) {
-        throw new Error("Problem while fetching player info")
+        const errorMessage = "Problem while fetching player data"
+
+        console.error(`${errorMessage}:\n${error}`)
+        throw new Error(errorMessage)
     }
 }

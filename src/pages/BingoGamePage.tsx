@@ -27,11 +27,16 @@ const BingoGamePage: React.FC = () => {
         }
 
         const fetchData = async (playerName: string) => {
-            const playerInfo = await getPlayerInfo(playerName)
-            setPlayerInfo(playerInfo)
+            try {
+                const playerInfo = await getPlayerInfo(playerName)
+                setPlayerInfo(playerInfo)
+            } catch (error) {
+                showBoundary(error)
+            }
         }
 
         fetchData(playerName)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [playerName])
 
     const handlePhraseClick = async (x: number, y: number) => {
