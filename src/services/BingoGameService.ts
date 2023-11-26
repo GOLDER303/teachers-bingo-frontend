@@ -15,8 +15,10 @@ export const JoinCurrentBingo = async (playerName: string) => {
 
         return bingoId
     } catch (error) {
-        //TODO: error handling
-        console.error(error)
+        const errorMessage = "Error while joining bingo game"
+
+        console.error(`${errorMessage}:\n${error}`)
+        throw new Error(errorMessage)
     }
 }
 

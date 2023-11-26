@@ -16,19 +16,18 @@ const MainPage: React.FC = () => {
 
         const playerName = playerNameInputRef.current.value
 
-        const bingoGameId = await JoinCurrentBingo(playerName)
+        try {
+            const bingoGameId = await JoinCurrentBingo(playerName)
+            const bingoGameSearchParams = { playerName }
 
-        if (!bingoGameId) {
+            navigate({
+                pathname: `/bingoGame/${bingoGameId}`,
+                search: createSearchParams(bingoGameSearchParams).toString(),
+            })
+        } catch (error) {
             setError("Problem while joining the game. Try again later")
             return
         }
-
-        const searchParams = { playerName }
-
-        navigate({
-            pathname: `/bingoGame/${bingoGameId}`,
-            search: createSearchParams(searchParams).toString(),
-        })
     }
 
     return (
