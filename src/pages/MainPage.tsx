@@ -14,6 +14,8 @@ const MainPage: React.FC = () => {
             return
         }
 
+        setError("")
+
         const playerName = playerNameInputRef.current.value
 
         try {
