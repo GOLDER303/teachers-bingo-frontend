@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import Confetti from "react-confetti"
 import { useErrorBoundary } from "react-error-boundary"
 import { Link, useParams, useSearchParams } from "react-router-dom"
 import { PlayerInfoDTO } from "../dtos/PlayerInfoDTO"
@@ -14,6 +15,9 @@ const BingoGamePage: React.FC = () => {
     const playerName = searchParams.get("playerName")
 
     const [playerInfo, setPlayerInfo] = useState<PlayerInfoDTO>()
+    const [playerHasWon, setPlayerHasWon] = useState(false)
+
+    const [isConfettiActive, setIsConfettiActive] = useState(false)
 
     useEffect(() => {
         if (!bingoGameId) {
@@ -57,6 +61,12 @@ const BingoGamePage: React.FC = () => {
         try {
             const playerChoiceResponseDTO = await makeChoice(parseInt(bingoGameId!), playerName!, { x, y })
 
+            if (!playerHasWon && playerChoiceResponseDTO.playerHasWon) {
+                setIsConfettiActive(true)
+            }
+
+            setPlayerHasWon(playerChoiceResponseDTO.playerHasWon)
+
             setPlayerInfo((prevPlayerInfo) => {
                 if (!prevPlayerInfo) {
                     return prevPlayerInfo
@@ -72,6 +82,19 @@ const BingoGamePage: React.FC = () => {
     return (
         <div className="flex flex-col min-h-screen py-10 items-center bg-blue-500 text-white">
             <h1 className="mb-10 text-3xl font-bold">Bingo Name</h1>
+
+            {isConfettiActive && (
+                <Confetti
+                    width={window.innerWidth}
+                    height={window.innerHeight}
+                    numberOfPieces={700}
+                    gravity={0.4}
+                    recycle={false}
+                    onConfettiComplete={() => {
+                        setIsConfettiActive(false)
+                    }}
+                />
+            )}
 
             {/* bingo grid */}
             {playerInfo ? (
