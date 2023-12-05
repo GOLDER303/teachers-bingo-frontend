@@ -3,7 +3,7 @@ import { useErrorBoundary } from "react-error-boundary"
 import { GeneralLeaderboardDTO } from "../dtos/GeneralLeaderboardDTO"
 import { getGeneralLeaderboard } from "../services/LeaderboardService"
 
-const LeaderboardPage: React.FC = () => {
+const GeneralLeaderboardPage: React.FC = () => {
     const { showBoundary } = useErrorBoundary()
 
     const [generalLeaderboard, setGeneralLeaderboard] = useState<GeneralLeaderboardDTO>()
@@ -57,4 +57,4 @@ const LeaderboardPage: React.FC = () => {
         </div>
     )
 }
-export default LeaderboardPage
+export default GeneralLeaderboardPage

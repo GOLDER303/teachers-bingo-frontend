@@ -2,7 +2,7 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import BingoGamePage from "./pages/BingoGamePage.tsx"
-import LeaderboardPage from "./pages/LeaderboardPage.tsx"
+import GeneralLeaderboardPage from "./pages/GeneralLeaderboardPage.tsx"
 import MainPage from "./pages/MainPage.tsx"
 import RootPage from "./pages/RootPage.tsx"
 import "./style/index.css"
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/leaderboard",
-                element: <LeaderboardPage />,
+                element: <GeneralLeaderboardPage />,
             },
         ],
     },
