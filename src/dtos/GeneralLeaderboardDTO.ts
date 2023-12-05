@@ -1,5 +1,5 @@
-import { LeaderboardPositionDTO } from "./LeaderboardPositionDTO"
+import { GeneralLeaderboardPositionDTO } from "./GeneralLeaderboardPositionDTO"
 
 export interface GeneralLeaderboardDTO {
-    positions: LeaderboardPositionDTO[]
+    positions: GeneralLeaderboardPositionDTO[]
 }

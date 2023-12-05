@@ -1,4 +1,4 @@
-export interface LeaderboardPositionDTO {
+export interface GeneralLeaderboardPositionDTO {
     playerName: string
     position: number
     bingoWinsCount: number
