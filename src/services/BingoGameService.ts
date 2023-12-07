@@ -2,12 +2,11 @@ import axios from "axios"
 import { CoordinatesDTO } from "../dtos/CoordinatesDTO"
 import { PlayerChoiceDTO } from "../dtos/PlayerChoiceDTO"
 import { PlayerChoiceResponseDTO } from "../dtos/PlayerChoiceResponseDTO"
-
-const API_URL: string = import.meta.env.VITE_API_URL
+import { API_URL } from "../utils/ApiRoutes"
 
 export const JoinCurrentBingo = async (playerName: string) => {
     try {
-        const response = await axios.post(`${API_URL}/api/bingo/join`, { PlayerName: playerName })
+        const response = await axios.post(`${API_URL}/bingo/join`, { PlayerName: playerName })
 
         const data = response.data
 
@@ -33,7 +32,7 @@ export const makeChoice = async (
             coordinates,
         }
 
-        const response = await axios.post(`${API_URL}/api/bingo/${bingoGameId}/choice`, payload)
+        const response = await axios.post(`${API_URL}/bingo/${bingoGameId}/choice`, payload)
 
         const data = response.data
 

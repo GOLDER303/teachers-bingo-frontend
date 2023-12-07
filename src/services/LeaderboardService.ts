@@ -1,12 +1,11 @@
 import axios from "axios"
 import { GeneralLeaderboardDTO } from "../dtos/GeneralLeaderboardDTO"
 import { LeaderboardDTO } from "../dtos/LeaderboardDTO"
-
-const API_URL: string = import.meta.env.VITE_API_URL
+import { API_URL } from "../utils/ApiRoutes"
 
 export const getGeneralLeaderboard = async (): Promise<GeneralLeaderboardDTO> => {
     try {
-        const response = await axios.get(`${API_URL}/api/leaderboard/general`)
+        const response = await axios.get(`${API_URL}/leaderboard/general`)
 
         const data = response.data
 
@@ -23,7 +22,7 @@ export const getGeneralLeaderboard = async (): Promise<GeneralLeaderboardDTO> =>
 
 export const getBingoGameLeaderboard = async (bingoGameId: string): Promise<LeaderboardDTO> => {
     try {
-        const response = await axios.get(`${API_URL}/api/bingo/${bingoGameId}/leaderboard`)
+        const response = await axios.get(`${API_URL}/bingo/${bingoGameId}/leaderboard`)
 
         const data = response.data
 
