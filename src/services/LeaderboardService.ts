@@ -1,11 +1,11 @@
 import axios from "axios"
 import { GeneralLeaderboardDTO } from "../dtos/GeneralLeaderboardDTO"
 import { LeaderboardDTO } from "../dtos/LeaderboardDTO"
-import { API_URL } from "../utils/ApiRoutes"
+import { API_URL, BINGO_ENDPOINT, LEADERBOARD_ENDPOINT } from "../utils/ApiRoutes"
 
 export const getGeneralLeaderboard = async (): Promise<GeneralLeaderboardDTO> => {
     try {
-        const response = await axios.get(`${API_URL}/leaderboard/general`)
+        const response = await axios.get(`${API_URL}/${LEADERBOARD_ENDPOINT}/general`)
 
         const data = response.data
 
@@ -22,7 +22,7 @@ export const getGeneralLeaderboard = async (): Promise<GeneralLeaderboardDTO> =>
 
 export const getBingoGameLeaderboard = async (bingoGameId: string): Promise<LeaderboardDTO> => {
     try {
-        const response = await axios.get(`${API_URL}/bingo/${bingoGameId}/leaderboard`)
+        const response = await axios.get(`${API_URL}/${BINGO_ENDPOINT}/${bingoGameId}/leaderboard`)
 
         const data = response.data
 

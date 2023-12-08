@@ -2,11 +2,11 @@ import axios from "axios"
 import { CoordinatesDTO } from "../dtos/CoordinatesDTO"
 import { PlayerChoiceDTO } from "../dtos/PlayerChoiceDTO"
 import { PlayerChoiceResponseDTO } from "../dtos/PlayerChoiceResponseDTO"
-import { API_URL } from "../utils/ApiRoutes"
+import { API_URL, BINGO_ENDPOINT } from "../utils/ApiRoutes"
 
 export const JoinCurrentBingo = async (playerName: string) => {
     try {
-        const response = await axios.post(`${API_URL}/bingo/join`, { PlayerName: playerName })
+        const response = await axios.post(`${API_URL}/${BINGO_ENDPOINT}/join`, { PlayerName: playerName })
 
         const data = response.data
 
@@ -32,7 +32,7 @@ export const makeChoice = async (
             coordinates,
         }
 
-        const response = await axios.post(`${API_URL}/bingo/${bingoGameId}/choice`, payload)
+        const response = await axios.post(`${API_URL}/${BINGO_ENDPOINT}/${bingoGameId}/choice`, payload)
 
         const data = response.data
 

@@ -1,10 +1,10 @@
 import axios from "axios"
 import { PlayerInfoDTO } from "../dtos/PlayerInfoDTO"
-import { API_URL } from "../utils/ApiRoutes"
+import { API_URL, PLAYER_ENDPOINT } from "../utils/ApiRoutes"
 
 export const getPlayerInfo = async (playerName: string): Promise<PlayerInfoDTO> => {
     try {
-        const response = await axios.get(`${API_URL}/player/${playerName}/info`)
+        const response = await axios.get(`${API_URL}/${PLAYER_ENDPOINT}/${playerName}/info`)
 
         const data = response.data as PlayerInfoDTO
 
