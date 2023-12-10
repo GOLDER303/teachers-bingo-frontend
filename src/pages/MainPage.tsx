@@ -1,6 +1,7 @@
 import { useRef, useState } from "react"
-import { createSearchParams, useNavigate } from "react-router-dom"
+import { Link, createSearchParams, useNavigate } from "react-router-dom"
 import { JoinCurrentBingo } from "../services/BingoGameService"
+import LeaderboardIcon from "/img/LeaderboardIcon.svg"
 
 const MainPage: React.FC = () => {
     const navigate = useNavigate()
@@ -35,8 +36,9 @@ const MainPage: React.FC = () => {
     return (
         <div className="flex flex-col h-screen pb-20 items-center justify-center bg-blue-500 text-white">
             <h1 className="mb-20 text-5xl font-bold">Teacher's Bingo</h1>
+
             <form
-                className="flex flex-col h-1/4 items-center justify-between"
+                className="flex flex-col h-1/3 items-center justify-between"
                 onSubmit={(event) => {
                     event.preventDefault()
                     handlePlayerNameSubmit()
@@ -62,6 +64,16 @@ const MainPage: React.FC = () => {
                 >
                     Play
                 </button>
+
+                <Link
+                    className="flex p-3 items-center justify-center border-2 border-white rounded-xl"
+                    to={"/leaderboard"}
+                >
+                    <img
+                        width={35}
+                        src={LeaderboardIcon}
+                    />
+                </Link>
             </form>
             <p className={`h-4 pt-5 ${error ? "opacity-100" : "opacity-0"}`}>{error}</p>
         </div>
