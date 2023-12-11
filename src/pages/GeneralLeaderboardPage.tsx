@@ -28,7 +28,7 @@ const GeneralLeaderboardPage: React.FC = () => {
 
             {generalLeaderboard ? (
                 <div className="w-full p-3">
-                    <table className="w-full text-xl text-center">
+                    <table className="w-full text-xl text-center table-fixed">
                         <thead>
                             <tr className="">
                                 <th className="py-2">Position</th>
